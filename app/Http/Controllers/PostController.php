@@ -10,8 +10,18 @@ use Illuminate\Contracts\View\View;
 class PostController extends Controller
 {
     public function index() : View {
+        $posts = Post::recent();
+        
+        if (request()->filled('category')) {
+            $posts->searchCategory(request('category'));
+        }
+
+        if (request()->filled('search')) {
+            $posts->searchTitle(request('search'));
+        }
+
         $args = [
-            'posts' => Post::recentPosts(),
+            'posts' => $posts->get(),
             'categories' => Category::all()
         ];
         

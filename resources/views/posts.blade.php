@@ -115,7 +115,12 @@
                     </div>
                 </aside>
                 <div class="col-lg-8 mb-5 mb-lg-0">
-                    <h2 class="h5 section-title">All Posts</h2>
+                    <h2 class="h5 section-title">
+                        {{
+                            request()->filled('search') ? 'Posts by : '. request('search') . '' : 'All Posts'
+                        }}
+                        ({{ $posts->count() }})
+                    </h2>
                     <div class="row">
                         @foreach ($posts as $post)
                             <div class="col-lg-6 col-sm-6">

@@ -56,8 +56,8 @@
             </div>
 
             <div class="order-2 order-lg-3 d-flex align-items-center">
-                <form action="#!" class="widget-search">
-                    <input class="border border-success pr-3" id="search-query" name="s" type="search"
+                <form action="{{ url('/posts') }}" class="widget-search">
+                    <input class="border border-success pr-3" id="search-query" name="search" type="search" value="{{ request('search') }}"
                         placeholder="Type &amp; Hit Enter...">
                 </form>
 

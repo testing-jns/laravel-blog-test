@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Post extends Model
 {
@@ -18,7 +19,7 @@ class Post extends Model
         'published_at' => 'datetime:Y-m-d'
     ];
 
-    private static Collection $posts;
+    private static Builder $posts;
 
 
     public function category() : BelongsTo {
@@ -31,37 +32,47 @@ class Post extends Model
 
     private static function initilize() : void {
         if (!empty(self::$posts)) return;
-        self::$posts = parent::with(['author', 'category'])->get();
+        self::$posts = parent::with(['author', 'category']);
     }
 
     public function readDuration() : int {
-        $avg_of_words_per_minute = 200;
-        Str::macro('readDuration', function(...$text) use($avg_of_words_per_minute) {
-            $total_words = str_word_count(implode(" ", $text));
-            $minutes_to_read = round($total_words / $avg_of_words_per_minute);
+        $avgOfWordsPerMinute = 200;
+        Str::macro('readDuration', function(...$text) use($avgOfWordsPerMinute) {
+            $totalWords = str_word_count(implode(" ", $text));
+            $minutesToRead = round($totalWords / $avgOfWordsPerMinute);
 
-            return intval(max(1, $minutes_to_read));
+            return intval(max(1, $minutesToRead));
         });
 
         return Str::readDuration($this->title, $this->body);
     }
 
-    public static function mostLikedPosts() : Post | null {
+    public function scopeMostLiked() : Builder {
         static::initilize();
-        return self::$posts->sortByDesc('likes')->first();
+        return self::$posts->orderByDesc('likes');
     }
 
-    public static function trendingPosts() {
+    public function scopeTrending() {
 
     }
 
-    public static function popularPosts() : Post | null {
+    public function scopePopular() : Builder {
         static::initilize();
-        return self::$posts->sortByDesc('views')->first();
+        return self::$posts->orderByDesc('views');
     }
 
-    public static function recentPosts() : Collection {
+    public function scopeRecent() : Builder {
         static::initilize();
-        return self::$posts->sortByDesc('published_at');
+        return self::$posts->orderByDesc('published_at');
     }
+
+    public function scopeSearchTitle(Builder $query, string $keyword) : Builder {
+        return $query->where('title', 'LIKE', '%'. $keyword .'%');
+    }
+
+    public function scopeSearchCategory(Builder $query, string $category) : Builder {
+        return $query->whereHas('category', function(Builder $query) use($category) {
+            $query->where('slug', '=', $category);
+        });
+    } 
 }
