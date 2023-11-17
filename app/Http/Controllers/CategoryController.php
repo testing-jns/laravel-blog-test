@@ -9,11 +9,24 @@ use Illuminate\Contracts\View\View;
 
 class CategoryController extends Controller
 {
-    public function show(Category $category) : View {
+    // public function show(Category $category) : View {
+    //     $args = [
+    //         'categories' => Category::all(),
+    //         'title' => $category->name,
+    //         'posts' => $category->posts->load('author', 'category')
+    //     ];
+
+    //     return view('category', $args);
+    // }
+
+    public function show(string $categoryName) : View {
+        $categories = Category::all();
+        $category = $categories->where('slug', '=', $categoryName)->first();
+
         $args = [
-            'categories' => Category::all(),
+            'categories' => $categories,
             'title' => $category->name,
-            'posts' => $category->posts->load('author', 'category')
+            'posts' => Post::recent()->where('category_id', '=', $category->id)
         ];
 
         return view('category', $args);

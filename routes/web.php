@@ -25,7 +25,8 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::get('/post/{post:slug}', [PostController::class, 'show'])->name('post');
 
 Route::permanentRedirect('/category', '/posts');
-Route::get('/category/{category:slug}', [CategoryController::class, 'show'])->name('category');
+// Route::get('/category/{category:slug}', [CategoryController::class, 'show'])->name('category');
+Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category');
 
 Route::permanentRedirect('/author', '/authors');
 Route::get('/authors', [AuthorController::class, 'index'])->name('authors');

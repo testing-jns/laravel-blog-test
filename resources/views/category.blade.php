@@ -115,7 +115,10 @@
                     </div>
                 </aside>
                 <div class="col-lg-8 mb-5 mb-lg-0">
-                    <h2 class="h5 section-title">{{ $title }}</h2>
+                    <h2 class="h5 section-title">
+                        {{ $title }}
+                        ({{ $posts->count() }})
+                    </h2>
                     <div class="row">
 
                         @foreach ($posts as $post)

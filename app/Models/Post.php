@@ -19,7 +19,8 @@ class Post extends Model
         'published_at' => 'datetime:Y-m-d'
     ];
 
-    private static Builder $posts;
+    // private static Builder $posts;
+    private static Collection $posts;
 
 
     public function category() : BelongsTo {
@@ -32,7 +33,7 @@ class Post extends Model
 
     private static function initilize() : void {
         if (!empty(self::$posts)) return;
-        self::$posts = parent::with(['author', 'category']);
+        self::$posts = parent::with(['author', 'category'])->get();
     }
 
     public function readDuration() : int {
@@ -47,23 +48,27 @@ class Post extends Model
         return Str::readDuration($this->title, $this->body);
     }
 
-    public function scopeMostLiked() : Builder {
+    public function scopeMostLiked() : Collection {
         static::initilize();
-        return self::$posts->orderByDesc('likes');
+        return self::$posts->sortByDesc('likes');
     }
 
     public function scopeTrending() {
 
     }
 
-    public function scopePopular() : Builder {
+    public function scopePopular() : Collection {
         static::initilize();
-        return self::$posts->orderByDesc('views');
+        return self::$posts->sortByDesc('views');
     }
 
-    public function scopeRecent() : Builder {
+    public function scopeRecent(Builder $query, bool $useRawBuilderQuery = false) : Builder | Collection {
+        if ($useRawBuilderQuery) {
+            return parent::with(['author', 'category'])->orderByDesc('published_at');
+        }
+        
         static::initilize();
-        return self::$posts->orderByDesc('published_at');
+        return self::$posts->sortByDesc('published_at');
     }
 
     public function scopeSearchTitle(Builder $query, string $keyword) : Builder {

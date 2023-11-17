@@ -10,7 +10,7 @@ use Illuminate\Contracts\View\View;
 class PostController extends Controller
 {
     public function index() : View {
-        $posts = Post::recent();
+        $posts = Post::recent(useRawBuilderQuery: true);
         
         if (request()->filled('category')) {
             $posts->searchCategory(request('category'));
@@ -21,7 +21,8 @@ class PostController extends Controller
         }
 
         $args = [
-            'posts' => $posts->get(),
+            // 'posts' => $posts->get(),
+            'posts' => collect([]),
             'categories' => Category::all()
         ];
         

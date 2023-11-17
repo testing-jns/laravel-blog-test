@@ -11,16 +11,12 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     public function index() : View {
-
-        // dd(Post::mostLiked()->get()->first()->id);
-
-
         $args = [
             'categories' => Category::all(),
-            'mostLikedPosts' => Post::mostLiked()->get()->first(), // entah besok satu atau lebih
-            'trendingPosts' => Post::trending()->get(),
-            'popularPosts' => Post::popular()->get()->first(), // entah besok satu atau lebih
-            'recentPosts' => Post::recent()->get()
+            'mostLikedPosts' => Post::mostLiked()->first(), // entah besok satu atau lebih
+            'trendingPosts' => Post::trending(),
+            'popularPosts' => Post::popular()->first(), // entah besok satu atau lebih
+            'recentPosts' => Post::recent()
         ];
         
         return view('home', $args);
