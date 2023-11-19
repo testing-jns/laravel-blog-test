@@ -1,24 +1,47 @@
 <header class="navigation fixed-top">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-white">
-            <a class="navbar-brand order-1" href="index.html">
-                <img class="img-fluid" width="100px" src="{{ url('assets/img/logo.png') }}"
-                    alt="Reader | Hugo Personal Blog Template">
-            </a>
+            <div class="navbar-brand order-1">
+                <a href="index.html">
+                    <img class="img-fluid" width="100px" src="{{ url('assets/img/logo.png') }}"
+                        alt="Reader | Hugo Personal Blog Template">
+                </a>
+            </div>
             <div class="collapse navbar-collapse text-center order-lg-2 order-3" id="navigation">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('home') }}">Home</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('posts') }}">Posts</a>
                     </li>
-
+                    
+                    @auth
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
+                        <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                     </li>
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST" class="border-none">
+                            @csrf
+                            <a class="nav-link" href="#logout" onclick="this.parentElement.submit()">
+                                Logout
+                            </a>
+                        </form>
+                    </li>
+                    @endauth
 
-                    <li class="nav-item dropdown">
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('signup') }}">Signup</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                        </li>
+                    @endguest
+
+                    {{-- <li class="nav-item dropdown">
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">Pages <i class="ti-angle-down ml-1"></i>
                         </a>
@@ -47,18 +70,18 @@
                             <a class="dropdown-item" href="404.html">404 Page</a>
 
                         </div>
-                    </li>
+                    </li> --}}
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="shop.html">Shop</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
 
             <div class="order-2 order-lg-3 d-flex align-items-center">
                 <form action="{{ url('/posts') }}" class="widget-search">
-                    <input class="border border-success pr-3" id="search-query" name="search" type="search" value="{{ request('search') }}"
-                        placeholder="Type &amp; Hit Enter...">
+                    <input class="border border-success pr-3" id="search-query" name="search" type="search"
+                        value="{{ request('search') }}" placeholder="Type &amp; Hit Enter...">
                 </form>
 
                 <button class="navbar-toggler border-0 order-1" type="button" data-toggle="collapse"
@@ -66,6 +89,7 @@
                     <i class="ti-menu"></i>
                 </button>
             </div>
+
 
         </nav>
     </div>

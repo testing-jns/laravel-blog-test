@@ -18,6 +18,6 @@ class AuthorController extends Controller
             'posts' => $author->posts->load('author', 'category')
         ];
                 
-        return view('author', $args);
+        return view('blog.author', $args);
     }
 }

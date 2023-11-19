@@ -13,13 +13,13 @@
                 </a>
             </div>
             <ul class="card-meta list-inline">
-                <li class="list-inline-item">
+                {{-- <li class="list-inline-item">
                     <i class="ti-timer"></i>{{ $readDuration }} Min To Read
                 </li>
                 <li class="list-inline-item">
                     <i class="ti-calendar"></i>
                     {{ $publishedDate }}
-                </li>
+                </li> --}}
                 <li class="list-inline-item">
                     <a href="{{ route('category', ['category' => $categorySlug]) }}" class="card-meta-author">
                     {{ $categoryName }}
@@ -33,13 +33,20 @@
                     <i class="ti-heart"></i>
                     {{ $likes }}
                 </li>
+
+                <li class="list-inline-item">
+                    <ul class="card-meta-tag list-inline">
+                        <li class="list-inline-item"><a href="tags.html">Wow</a></li>
+                        <li class="list-inline-item"><a href="tags.html">Tasty</a></li>
+                    </ul>
+                </li>
             </ul>
-            <div class="card-meta mb-2">
+            {{-- <div class="card-meta mb-2">
                 <ul class="card-meta-tag list-inline">
                     <li class="list-inline-item"><a href="tags.html">Wow</a></li>
                     <li class="list-inline-item"><a href="tags.html">Tasty</a></li>
                 </ul>
-            </div>
+            </div> --}}
             <p>{{ $excerpt }}</p>
             <a href="{{ route('post', ['post' => $slug]) }}" class="btn btn-outline-primary">Read More</a>
         </div>

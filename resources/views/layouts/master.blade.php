@@ -11,7 +11,7 @@
         @yield('main-content')
     </main>
 
-    {{-- @include('layouts.footer')   --}}
+    @include('layouts.footer')  
 
     {{-- Default JS Plugins --}}
     @section('js-plugins')

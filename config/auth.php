@@ -15,7 +15,8 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        // 'passwords' => 'users',
+        'passwords' => 'authors',
     ],
 
     /*
@@ -38,7 +39,8 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            // 'provider' => 'users',
+            'provider' => 'authors',
         ],
     ],
 
@@ -60,9 +62,11 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        // 'users' => [
+        'authors' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            // 'model' => App\Models\User::class,
+            'model' => App\Models\Author::class,
         ],
 
         // 'users' => [
@@ -91,8 +95,10 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        // 'users' => [
+        'authors' => [
+            // 'provider' => 'users',
+            'provider' => 'authors',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
@@ -111,5 +117,18 @@ return [
     */
 
     'password_timeout' => 10800,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication Table
+    |--------------------------------------------------------------------------
+    |
+    | When using the "Database" authentication driver, we need to know which
+    | table should be used to retrieve your users. We have chosen a basic
+    | default value but you may easily change it to any table you like.
+    |
+    */
+
+    'table' => 'authors',
 
 ];

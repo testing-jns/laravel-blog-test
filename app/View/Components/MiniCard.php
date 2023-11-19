@@ -28,6 +28,6 @@ class MiniCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.mini-card');
+        return view('components.card.mini-post');
     }
 }

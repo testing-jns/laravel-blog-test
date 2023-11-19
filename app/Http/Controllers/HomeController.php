@@ -16,9 +16,11 @@ class HomeController extends Controller
             'mostLikedPosts' => Post::mostLiked()->first(), // entah besok satu atau lebih
             'trendingPosts' => Post::trending(),
             'popularPosts' => Post::popular()->first(), // entah besok satu atau lebih
-            'recentPosts' => Post::recent()
+            'recentPosts' => Post::paginate(Post::recent(), 3)
+            // 'recentPosts' => Post::recent(useRawBuilderQuery: true)->simplePaginate(3)
+            // 'recentPosts' => Post::recent(useRawBuilderQuery: true)->paginate(10)
         ];
         
-        return view('home', $args);
+        return view('blog.home', $args);
     }
 }

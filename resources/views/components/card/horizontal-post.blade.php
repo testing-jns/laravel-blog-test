@@ -13,7 +13,8 @@
             </div>
         </div>
         <div class="col-md-8">
-            <h3 class="h4 mb-3"><a class="post-title" href="{{ route('post', ['post' => $slug]) }}">{{ $title }}</a></h3>
+            <h3 class="h4 mb-3"><a class="post-title"
+                    href="{{ route('post', ['post' => $slug]) }}">{{ $title }}</a></h3>
             <div class="card-meta mb-2">
                 <a href="{{ route('author', ['author' => $username]) }}" class="card-meta-author">
                     <img src="{{ url('assets/img/kate-stone.jpg') }}" alt="{{ $categoryName }}" loading="lazy">
@@ -21,16 +22,16 @@
                 </a>
             </div>
             <ul class="card-meta list-inline">
-                <li class="list-inline-item">
+                {{-- <li class="list-inline-item">
                     <i class="ti-timer"></i>{{ $readDuration }} Min To Read
                 </li>
                 <li class="list-inline-item">
                     <i class="ti-calendar"></i>
                     {{ $publishedDate }}
-                </li>
+                </li> --}}
                 <li class="list-inline-item">
                     <a href="{{ route('category', ['category' => $categorySlug]) }}" class="card-meta-author">
-                    {{ $categoryName }}
+                        {{ $categoryName }}
                     </a>
                 </li>
                 <li class="list-inline-item">
@@ -41,13 +42,20 @@
                     <i class="ti-heart"></i>
                     {{ $likes }}
                 </li>
+
+                <li class="list-inline-item">
+                    <ul class="card-meta-tag list-inline">
+                        <li class="list-inline-item"><a href="tags.html">Wow</a></li>
+                        <li class="list-inline-item"><a href="tags.html">Tasty</a></li>
+                    </ul>
+                </li>
             </ul>
-            <div class="card-meta mb-2">
+            {{-- <div class="card-meta mb-2">
                 <ul class="card-meta-tag list-inline">
                     <li class="list-inline-item"><a href="tags.html">Wow</a></li>
                     <li class="list-inline-item"><a href="tags.html">Tasty</a></li>
                 </ul>
-            </div>
+            </div> --}}
             <p>{{ $excerpt }}</p>
             <a href="{{ route('post', ['post' => $slug]) }}" class="btn btn-outline-primary">Read More</a>
         </div>

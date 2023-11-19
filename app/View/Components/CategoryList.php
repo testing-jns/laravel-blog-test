@@ -14,8 +14,7 @@ class CategoryList extends Component
     public function __construct(
         public string $name,
         public string $slug,
-        public string $total,
-        public ?string $requestCategoryName = null
+        public string $total
     ) {}
 
     /**
@@ -23,6 +22,6 @@ class CategoryList extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.category-list');
+        return view('components.list.category');
     }
 }

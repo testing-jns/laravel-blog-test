@@ -9,24 +9,23 @@ use Illuminate\Contracts\View\View;
 
 class PostController extends Controller
 {
-    public function index() : View {
+    public function index(Request $request) : View {
         $posts = Post::recent(useRawBuilderQuery: true);
         
-        if (request()->filled('category')) {
+        if ($request->filled('category')) {
             $posts->searchCategory(request('category'));
         }
 
-        if (request()->filled('search')) {
+        if ($request->filled('search')) {
             $posts->searchTitle(request('search'));
         }
 
         $args = [
-            // 'posts' => $posts->get(),
-            'posts' => collect([]),
+            'posts' => Post::paginate($posts->get(), 4)->withPath('/posts'),
             'categories' => Category::all()
         ];
         
-        return view('posts', $args);
+        return view('blog.posts', $args);
     }
 
     public function show(Post $post) : View {
@@ -34,6 +33,6 @@ class PostController extends Controller
             'post' => $post->load('author', 'category')
         ];
         
-        return view('post', $args);
+        return view('blog.post', $args);
     }
 }

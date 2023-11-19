@@ -153,7 +153,7 @@
                         </div>
                     </article>
 
-                    <article class="card mb-4">
+                    {{-- <article class="card mb-4">
                         <div class="card-body d-flex">
                             <img class="card-img-sm" src="{{ url('assets/img/post/post-2.jpg') }}">
                             <div class="ml-3">
@@ -169,7 +169,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </article>
+                    </article> --}}
                 </div>
 
                 <div class="col-lg-4 mb-5">
@@ -395,6 +395,7 @@
                             likes="{{ $recentPost->likes }}" />
                     @endforeach
 
+                    <a href="{{ route('posts') }}" class="btn btn-outline-primary">All Posts</a>
 
                     {{-- <article class="card mb-4">
                         <div class="row card-body">

@@ -26,7 +26,7 @@
                         <ul class="list-unstyled widget-list">
                             @foreach ($categories as $category)
                                 <x-category-list name="{{ $category->name }}" slug="{{ $category->slug }}"
-                                    total="{{ $category->posts->count() }}" requestCategoryName="{{ basename(request()->path()) }}" />
+                                    total="{{ $category->posts->count() }}" />
                             @endforeach
                         </ul>
                     </div><!-- tags -->
@@ -135,7 +135,7 @@
 
                     </div>
 
-                    <ul class="pagination justify-content-center">
+                    {{-- <ul class="pagination justify-content-center">
                         <li class="page-item page-item active ">
                             <a href="#!" class="page-link">1</a>
                         </li>
@@ -145,7 +145,9 @@
                         <li class="page-item">
                             <a href="#!" class="page-link">&raquo;</a>
                         </li>
-                    </ul>
+                    </ul> --}}
+
+                    {{ $posts->links() }}
                 </div>
             </div>
         </div>
