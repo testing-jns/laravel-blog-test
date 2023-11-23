@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 
@@ -12,10 +13,12 @@ class AuthorController extends Controller
         return "All authors!";
     }
 
-    public function show(Author $author) : View {
+    public function show(Request $request, Author $author) : View {
+        $posts = $author->posts->load('author', 'category');
+        
         $args = [
             'author' => $author,
-            'posts' => $author->posts->load('author', 'category')
+            'posts' => Post::paginate($posts, 4)->withPath('/' . $request->path())
         ];
                 
         return view('blog.author', $args);
