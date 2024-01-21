@@ -2,7 +2,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-white">
             <div class="navbar-brand order-1">
-                <a href="index.html">
+                <a href="{{ route('home') }}">
                     <img class="img-fluid" width="100px" src="{{ url('assets/img/logo.png') }}"
                         alt="Reader | Hugo Personal Blog Template">
                 </a>
