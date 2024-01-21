@@ -20,8 +20,11 @@ class PostController extends Controller
             $posts->searchTitle(request('search'));
         }
 
+        $perPage = 6;
+        $path = $request->getUriForPath('') . $request->getPathInfo();
+
         $args = [
-            'posts' => Post::paginate($posts->get(), 4)->withPath('/posts'),
+            'posts' => Post::paginate($posts->get(), $perPage)->withPath($path),
             'categories' => Category::all()
         ];
         

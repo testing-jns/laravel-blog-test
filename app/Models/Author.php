@@ -11,8 +11,6 @@ class Author extends Authenticatable
 {
     use HasFactory;
 
-    protected $table = 'authors';
-
     protected $guarded = ['id'];
     
     public function posts() : HasMany {

@@ -14,7 +14,7 @@ class SignupController extends Controller
     public function create() : View {
         return view('blog.signup');
     }
-
+// abcdefghijklmnopqrstuvwxyz
     public function store(Request $request) : RedirectResponse {
         $validatedData = $request->validate([
             'name' => 'required',
@@ -23,7 +23,7 @@ class SignupController extends Controller
             'password' => 'required|min:8|confirmed',
             'password_confirmation' => 'required'
         ]);
-
+        
         // 'password' => [ 'required', Password::min(8)->mixedCase()->letters()->numbers()->symbols()->uncompromised()]
         // Illuminate\Validation\Rules\Password;
 
